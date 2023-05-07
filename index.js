@@ -61,7 +61,7 @@ function endApplication() {
 
     const likedPostsContainer = `
     <div class="liked-posts-container">
-        <p class="liked-posts-title">💗 Your favourite posts are: </p>
+        <p class="liked-posts-title">💗 Here are your favourite posts </p>
         <button class="go-back-btn" id="go-back-btn">Go back</button>
         ${likedDogPostsHtml}
     </div>`
