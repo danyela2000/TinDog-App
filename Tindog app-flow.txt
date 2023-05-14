@@ -1,0 +1,58 @@
+
+
+----------------- Module 7 Scrimba Tindog solo project ---------
+
+Scenarii :
+
+I. Inainte ca userul sa apese pe un buton
+
+
+let isWaiting = false
+let likedDogAvatarArray = []
+let dogPost = getNewDogPost()
+
+cauta functia :
+function getNewDogPost() {
+    // unde dogs este un array cu obiecte cu info despre fiecare catel
+    // sterge primul element din array, si il returneaza
+    const nextDogData = dogs.shift() // va contine primul obiect din array-ul dogs
+    
+   // dacă mai există cel puțin un obiect în array => creaza un nou obiect cu datele preluate din obiectul salvat în nextDogsData, apoi il returneaza
+    // în caz contrar, dacă nu mai există, returnează un obiect gol (adică nu va afișa nimic)
+    return nextDogData ? new Dog(nextDogData) : {} // returneaza obiectul
+}
+
+new Dog(nextDogData) => cu constructor initializeaza prop noului obiect, si creaza o noua prop :
+this.badgeHtml = '' (pentru ecuson, care initial nu apare pe ecran)
+
+ => let dogPost = getNewDogPost() =  return primul obiect din array
+
+
+render()
+
+cauta functia :
+function render() {
+    document.getElementById("dog-posts-section").innerHTML = dogPost.getDogPostHtml()
+}
+
+cauta metoda :
+in clasa Dog :
+dogPost.getDogPostHtml() => returneaza string-ul html cu postarea aferenta obiectului din array
+
+se intoarce in render() => randeaza pe ecran postarea
+
+II. Daca userul apasa pe unul din butoane:
+
+caz : Daca a apasat "heart"
+In eventListener:
+else if(event.target.id === "heart") {
+            likedDogAvatarArray.push(dogPost.avatar) // adauga in acest array, avatarul postarii apreciate de user
+            setDogPostState(true, true) 
+            // cauta functia:
+            function setDogPostState(isSwiped, isLiked) {
+                dogPost.hasBeenSwiped = isSwiped// true
+                dogPost.hasBeenLiked =  isLiked// true
+ }
+            InteractionBtnClick() 
+}
+

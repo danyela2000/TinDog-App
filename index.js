@@ -3,40 +3,47 @@ import Dog from "./Dog.js";
 
 let isWaiting = false
 let likedDogAvatarArray = []
+let dogPost = getNewDogPost()
 
 function getNewDogPost() {
-    //save the first object from dogs array, in nextDogsData, and remove it from the array
     const nextDogData = dogs.shift() 
-    
-   // if there is at least one object in the array => create a new object with the data taken from the object saved in nextDogsData, then return it
-    //otherwise, if it doesn't exist anymore, return an empty object (i.e. it won't display anything)
     return nextDogData ? new Dog(nextDogData) : {} 
 }
 
 document.addEventListener("click", function(event) {
     if(!isWaiting) {
-        if(event.target.id === "cross") {
-            setDogPostState(true, false)
-            InteractionBtnClick()
-    
-        } else if(event.target.id === "heart") {
-            likedDogAvatarArray.push(dogPost.avatar)
-            setDogPostState(true, true)
-            InteractionBtnClick() 
-
+        if(event.target.id === "cross" || event.target.parentElement.id === "cross") {
+            reject()
+        } else if(event.target.id === "heart" || event.target.parentElement.id === "heart") {
+            like()
         } else if(event.target.id === "go-back-btn") {
-            setTimeout(() =>{window.location.reload();}, 500)  
+            goBack()
         }
     }
   
 })
+
+function reject() {
+    setDogPostState(true, false)
+    interactionBtnClick()
+}
+
+function like() {
+    likedDogAvatarArray.push(dogPost.avatar)
+    setDogPostState(true, true)
+    interactionBtnClick() 
+}
+
+function goBack() {
+    setTimeout(() =>{window.location.reload()}, 500)  
+}
 
 function setDogPostState(isSwiped, isLiked) {
     dogPost.hasBeenSwiped = isSwiped
     dogPost.hasBeenLiked =  isLiked
 }
 
-function InteractionBtnClick() {
+function interactionBtnClick() {
     isWaiting = true
     dogPost.setBadgeHtml()
     render()
@@ -77,5 +84,4 @@ function render() {
     document.getElementById("dog-posts-section").innerHTML = dogPost.getDogPostHtml()
 }
 
-let dogPost = getNewDogPost()
 render()
